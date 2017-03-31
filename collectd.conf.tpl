@@ -24,17 +24,14 @@ LoadPlugin write_graphite
 </LoadPlugin>
 
 <Plugin "python">
-  # collectd-librato.py is at /opt/collectd-librato-0.0.10/lib/collectd-librato.py
-  ModulePath "/opt/collectd-librato-0.0.10/lib"
+    ModulePath "/opt/collectd-librato-0.0.10/lib"
 
-  Import "collectd-librato"
-  <Module "collectd-librato">
-    Email    "{{ LIBRATO_EMAIL_ADDRESS }}"
-    APIToken "{{ LIBRATO_API_TOKEN }}"
-  </Module>
-</Plugin>
+    Import "collectd-librato"
+    <Module "collectd-librato">
+        Email    "{{ LIBRATO_EMAIL_ADDRESS }}"
+        APIToken "{{ LIBRATO_API_TOKEN }}"
+    </Module>
 
-<Plugin "python">
     ModulePath "/usr/share/collectd/plugins/mesos"
 
     Import "mesos-tasks"
