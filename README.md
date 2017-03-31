@@ -117,6 +117,8 @@ docker run -d -e GRAPHITE_HOST=<graphite host> -e MESOS_HOST=<mesos host> \
 * `GRAPHITE_PREFIX` - prefix for metrics in graphite, `collectd.` by default.
 * `MESOS_HOST` - mesos slave host to monitor.
 * `MESOS_PORT` - mesos slave port number, defaults to `5051`.
+* `LIBRATO_EMAIL_ADDRESS` - librato email address
+* `LIBRATO_API_TOKEN` - librato api token
 
 Note that this docker image is very minimal and libc inside does not
 support `search` directive in `/etc/resolv.conf`. You have to supply
