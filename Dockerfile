@@ -1,7 +1,7 @@
 FROM alpine:3.1
 
 
-RUN apk --update add make git collectd collectd-python py-pip && \
+RUN apk --update add make git collectd collectd-write_http collectd-python py-pip && \
     pip install envtpl
 
 RUN cd /usr/share && ln -s collectd5 collectd
