@@ -3,6 +3,7 @@
 import collectd
 import json
 import urllib2
+import os
 
 CONFIGS = []
 
