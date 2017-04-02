@@ -80,10 +80,14 @@ def read_stats(conf):
             continue
 
         info = tasks[task["source"]]
-        if "collectd_app" not in info["labels"]:
-            continue
+        if not os.environ['USE_LABEL']:
+            if "collectd_app" not in info["labels"]:
+                continue
 
-        app = info["labels"]["collectd_app"].replace(".", "_")
+        app = "collectd"
+        if not os.environ['USE_LABEL']:
+            app = info["labels"]["collectd_app"].replace(".", "_")
+
         instance = task["source"].replace(".", "_")
 
         for metric, multiplier in METRICS.iteritems():
