@@ -24,14 +24,6 @@ LoadPlugin write_graphite
 </LoadPlugin>
 
 <Plugin "python">
-    ModulePath "/opt/collectd-librato-0.0.10/lib"
-
-    Import "collectd-librato"
-    <Module "collectd-librato">
-        Email    "{{ LIBRATO_EMAIL_ADDRESS }}"
-        APIToken "{{ LIBRATO_API_TOKEN }}"
-    </Module>
-
     ModulePath "/usr/share/collectd/plugins/mesos"
 
     Import "mesos-tasks"
@@ -39,4 +31,16 @@ LoadPlugin write_graphite
         Host "{{ MESOS_HOST }}"
         Port {{ MESOS_PORT | default(5051) }}
     </Module>
+</Plugin>
+
+LoadPlugin write_http
+<Plugin write_http>
+  <Node "librato">
+    URL "https://collectd.librato.com/v1/measurements"
+    Format "JSON"
+    BufferSize 8192
+
+    User "{{ LIBRATO_EMAIL_ADDRESS }}"
+    Password "{{ LIBRATO_API_TOKEN }}"
+  </Node>
 </Plugin>
