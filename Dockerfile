@@ -1,4 +1,4 @@
-FROM alpine:3.1
+FROM alpine:3.5
 
 
 RUN apk --update add make git collectd collectd-write_http collectd-python py-pip && \
