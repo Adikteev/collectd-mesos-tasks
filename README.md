@@ -120,6 +120,8 @@ docker run -d -e GRAPHITE_HOST=<graphite host> -e MESOS_HOST=<mesos host> \
 * `LIBRATO_EMAIL_ADDRESS` - librato email address
 * `LIBRATO_API_TOKEN` - librato api token
 
+Note that the Graphite and Librato plugins will only be loaded if resp. GRAPHITE_HOST and LIBRATO_EMAIL_ADDRESS are defined
+
 Note that this docker image is very minimal and libc inside does not
 support `search` directive in `/etc/resolv.conf`. You have to supply
 full hostname in `MESOS_HOST` that can be resolved with nameserver.

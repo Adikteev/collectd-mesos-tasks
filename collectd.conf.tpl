@@ -5,6 +5,7 @@ Interval {{ COLLECTD_INTERVAL | default(10) }}
 Timeout 2
 ReadThreads 5
 
+{% if GRAPHITE_HOST is defined %}
 LoadPlugin write_graphite
 <Plugin "write_graphite">
     <Carbon>
@@ -18,6 +19,7 @@ LoadPlugin write_graphite
         SeparateInstances true
     </Carbon>
 </Plugin>
+{% endif %}
 
 <LoadPlugin "python">
     Globals true
@@ -33,6 +35,7 @@ LoadPlugin write_graphite
     </Module>
 </Plugin>
 
+{% if LIBRATO_EMAIL_ADDRESS is defined %}
 LoadPlugin write_http
 <Plugin write_http>
   <Node "librato">
@@ -44,3 +47,4 @@ LoadPlugin write_http
     Password "{{ LIBRATO_API_TOKEN }}"
   </Node>
 </Plugin>
+{% endif %}

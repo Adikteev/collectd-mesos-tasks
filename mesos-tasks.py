@@ -11,8 +11,10 @@ METRICS = {
     "cpus_limit": 1000,
     "cpus_system_time_secs": 1000,
     "cpus_user_time_secs": 1000,
+    "cpus_throttled_time_secs": 1000,
     "mem_limit_bytes": 1,
-    "mem_rss_bytes": 1
+    "mem_rss_bytes": 1,
+    "mem_total_bytes": 1
 }
 
 def configure_callback(conf):
@@ -81,13 +83,13 @@ def read_stats(conf):
             continue
 
         info = tasks[task["source"]]
-        if not os.environ['USE_LABEL']:
+        if not os.environ['IGNORE_LABELS']:
             if "collectd_app" not in info["labels"]:
                 continue
 
-        app = "collectd"
-        if not os.environ['USE_LABEL']:
-            app = info["labels"]["collectd_app"].replace(".", "_")
+        app = ""
+        if not os.environ['IGNORE_LABELS']:
+            app = info["labels"]["collectd_app"].replace(".", "_") + "."
 
         instance = task["source"].replace(".", "_")
 
@@ -97,9 +99,10 @@ def read_stats(conf):
 
             val = collectd.Values(plugin="mesos-tasks")
             val.type = "gauge"
-            val.plugin_instance = app + "." + instance
+            val.plugin_instance = app 
             val.type_instance = metric
             val.values = [int(task["statistics"][metric] * multiplier)]
+            val.host = instance
             val.dispatch()
 
 def read_callback():
